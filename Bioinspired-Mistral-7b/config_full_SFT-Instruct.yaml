@@ -1,0 +1,61 @@
+# Model arguments
+model_name_or_path: lamm-mit/mistral-7B-v0.3-zephyr-Instruct-CPT
+model_revision: main
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+
+# Data training arguments
+dataset_mixer:
+  lamm-mit/magpie-ultra-v0.1: 1.0
+  lamm-mit/HuggingFaceH4-deita-10k-v0-sft: 1.0
+  lamm-mit/HuggingFaceH4-ultrachat_200k: 1.0
+  lamm-mit/bio-silk-mech-mix-q-a-35K
+
+dataset_splits:
+- train
+#- test_sft
+preprocessing_num_workers: 12
+
+# SFT trainer config
+bf16: true
+dataset_kwargs:
+  add_special_tokens: false  # We already wrap <bos> and <eos> in the chat template
+  append_concat_token: false # No need to add <eos> across samples
+do_eval: false
+#eval_strategy: epoch
+eval_strategy: "no"
+max_grad_norm: 1.0
+gradient_accumulation_steps: 2
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: False
+hub_model_id: lamm-mit/mistral-7B-v0.3-zephyr-Instruct-CPT_SFT
+hub_strategy: every_save
+hub_private_repo: True
+learning_rate: 2.0e-05
+log_level: info
+logging_steps: 10  
+logging_strategy: steps
+lr_scheduler_type: cosine
+max_seq_length: 3076
+max_steps: -1
+num_train_epochs: 1
+output_dir: data/mistral-7B-v0.3-zephyr-Instruct-CPT_SFT
+overwrite_output_dir: true
+per_device_eval_batch_size: 1
+per_device_train_batch_size: 12
+push_to_hub: true
+remove_unused_columns: true
+report_to:
+- wandb
+#save_strategy: "steps"
+save_strategy: epoch
+hub_strategy: every_save
+#save_strategy: "no"
+#save_strategy: epoch
+#hub_strategy: every_save
+
+#save_steps: 100
+save_total_limit: 1
+seed: 42
+warmup_ratio: 0.1

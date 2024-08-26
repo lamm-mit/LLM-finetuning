@@ -1,0 +1,53 @@
+# Model arguments
+model_name_or_path: lamm-mit/mistralai-Mistral-7B-v0.3
+
+model_revision: main
+torch_dtype: bfloat16
+
+# Data training arguments
+dataset_mixer:
+  lamm-mit/bio-silk-mech-data-integrated_text: 1.0 
+  lamm-mit/raw_text_bio_and_silk-_V10: 1.0  
+  lamm-mit/bio-silk-mech-data-integrated_text: 1.0 
+  lamm-mit/bioinspired_expanded_60K: 1.0
+
+dataset_splits:
+  - train
+preprocessing_num_workers: 12
+
+bf16: true
+do_eval: False
+eval_strategy: "no"
+max_grad_norm: 1.0
+gradient_accumulation_steps: 4
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: False
+hub_model_id: lamm-mit/mistral-7B-v0.3-zephyr-CPT
+hub_private_repo: True
+hub_strategy: every_save
+learning_rate: 2.0e-5 #2.0e-05  was before
+log_level: info
+logging_steps: 5 
+logging_strategy: steps
+lr_scheduler_type: cosine
+max_seq_length: 3072
+max_steps: -1
+num_train_epochs: 3
+output_dir: data/mistral-7B-v0.3-zephyr-CPT
+overwrite_output_dir: true
+per_device_eval_batch_size: 1
+per_device_train_batch_size: 12
+push_to_hub: true
+remove_unused_columns: true
+report_to:
+- wandb
+#save_strategy: "steps"
+#save_steps: 100
+
+save_strategy: epoch
+hub_strategy: every_save
+
+save_total_limit: 1
+seed: 42
+warmup_ratio: 0.1

@@ -1,0 +1,58 @@
+# Model arguments
+model_name_or_path: lamm-mit/meta-llama-Meta-Llama-3.1-8B
+#model_revision: ....
+
+model_revision: main
+torch_dtype: bfloat16
+
+# Data training arguments
+dataset_mixer:
+  lamm-mit/bio-silk-mech-mix-80K: 1.0 
+  lamm-mit/raw_text_bio_marker: 1.0
+  lamm-mit/raw_text_silk_marker: 1.0 
+  lamm-mit/bio-silk-mech-mix-80K: 1.0 
+  lamm-mit/bio-materials-text-60K: 1.0
+  
+dataset_splits:
+  - train
+
+preprocessing_num_workers: 12
+
+# SFT trainer config
+bf16: true
+dataset_kwargs:
+  add_special_tokens: true  # 
+  append_concat_token: false # No need to add <eos> across samples
+do_eval: False
+eval_strategy: "no"
+max_grad_norm: 1.0
+gradient_accumulation_steps: 2
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: False
+hub_model_id: lamm-mit/BioSilk_Llama3.1-8b-Base-CPT
+hub_private_repo: True
+hub_strategy: every_save
+learning_rate: 2.0e-5  
+log_level: info
+logging_steps: 5 
+logging_strategy: steps
+lr_scheduler_type: cosine
+max_seq_length: 3072
+max_steps: -1
+num_train_epochs: 5
+output_dir: data/BioSilk_Llama3.1-8b-Base-CPT
+overwrite_output_dir: true
+per_device_eval_batch_size: 1
+per_device_train_batch_size: 6
+push_to_hub: true
+remove_unused_columns: true
+report_to:
+- wandb 
+
+save_strategy: epoch
+hub_strategy: every_save
+
+save_total_limit: 1
+seed: 42
+warmup_ratio: 0.1

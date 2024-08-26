@@ -1,0 +1,52 @@
+# Model arguments
+model_name_or_path: lamm-mit/BioSilk_Llama3.1-8b-Base-CPT-SFT
+
+#resume_from_checkpoint: true
+
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+  
+dataset_mixer:
+  lamm-mit/orpo-dpo-mix-40k: 1.0
+  lamm-mit/bio-inspired-DPO: 1.0
+  lamm-mit/spider-silk-DPO: 1.0
+  
+dataset_splits:
+- train
+
+preprocessing_num_workers: 8
+
+# ORPOTrainer arguments
+bf16: true
+
+beta: 0.1
+gradient_accumulation_steps: 1
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: true
+hub_model_id: lamm-mit/BioSilk_Llama3.1-8b-Base-CPT-SFT-ORPO
+hub_private_repo: true
+learning_rate: 3.0e-06
+log_level: info
+logging_steps: 10
+#lr_scheduler_type: inverse_sqrt
+lr_scheduler_type: cosine
+
+max_length: 2048
+max_prompt_length: 1700
+num_train_epochs: 1
+#optim: adamw_bnb_8bit
+output_dir: data/BioSilk_Llama3.1-8b-Base-CPT-SFT-ORPO
+per_device_eval_batch_size: 1
+per_device_train_batch_size: 3
+
+push_to_hub: true
+report_to:
+- wandb
+
+save_strategy: epoch
+hub_strategy: every_save
+
+save_total_limit: 5
+seed: 42
+warmup_steps: 100

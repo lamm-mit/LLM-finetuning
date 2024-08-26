@@ -1,0 +1,53 @@
+# Model arguments
+#model_name_or_path: lamm-mit/llama-3-1-bio-base_V1
+model_name_or_path: lamm-mit/mistral-7B-v0.3-zephyr-CPT_SFT  
+model_revision: main
+torch_dtype: bfloat16
+attn_implementation: flash_attention_2
+
+# Data training arguments
+chat_template: "{%- set first_message = messages | first -%}\n{%- if first_message['role'] in ['system', 'user'] -%}\n{{ bos_token }}\n{%- endif -%}\n{% for message in messages -%}\n {%- if message['role'] == 'user' -%}\n{{ '<|user|>\n' + (message['content'] or '') + eos_token }}\n {%- elif message['role'] == 'system' -%}\n{{ '<|system|>\n' + (message['content'] or '') + eos_token }}\n {%- elif message['role'] == 'assistant' -%}\n{{ '<|assistant|>\n' + (message['content'] or '') + eos_token }}\n {%- endif -%}\n{% endfor -%}\n{%- if add_generation_prompt -%}\n{{ '<|assistant|>' }}\n{%- endif -%}"
+  
+dataset_mixer:
+  lamm-mit/orpo-dpo-mix-40k: 1.0
+  lamm-mit/bio-inspired-DPO: 1.0
+  lamm-mit/spider-silk-DPO: 1.0
+  
+dataset_splits:
+- train
+
+preprocessing_num_workers: 8
+
+# ORPOTrainer arguments
+bf16: true
+
+beta: 0.1
+gradient_accumulation_steps: 4
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: true
+hub_model_id: lamm-mit/mistral-7B-v0.3-zephyr-CPT_SFT_ORPO
+hub_private_repo: true
+learning_rate: 5.0e-6
+log_level: info
+logging_steps: 10
+#lr_scheduler_type: inverse_sqrt
+lr_scheduler_type: cosine
+
+max_length: 3072
+max_prompt_length: 2000
+num_train_epochs: 1
+#optim: adamw_bnb_8bit
+output_dir: data/mistral-7B-v0.3-zephyr-CPT_SFT_ORPO
+per_device_eval_batch_size: 1
+per_device_train_batch_size: 10
+#per_device_train_batch_size: 1
+push_to_hub: true
+report_to:
+- wandb
+#save_strategy: "no"
+save_strategy: epoch
+hub_strategy: every_save
+
+seed: 42
+warmup_steps: 100
