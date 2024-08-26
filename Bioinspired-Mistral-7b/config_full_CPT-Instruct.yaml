@@ -6,9 +6,9 @@ torch_dtype: bfloat16
 
 # Data training arguments
 dataset_mixer:
-  lamm-mit/bio-silk-mech-data-integrated_text: 1.0 
-  lamm-mit/raw_text_bio_and_silk-_V10: 1.0  
-  lamm-mit/bio-silk-mech-data-integrated_text: 1.0 
+  lamm-mit/bio-silk-mech-mix-80K: 1.0 
+  lamm-mit/raw-text-silk-bio-extended-13.5K: 1.0  
+  lamm-mit/bio-silk-mech-mix-80K: 1.0 
   lamm-mit/magpie-ultra-v0.1: 0.1 
   lamm-mit/bioinspired_expanded_60K: 1.0
 
