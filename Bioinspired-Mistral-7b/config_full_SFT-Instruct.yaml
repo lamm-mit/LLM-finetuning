@@ -9,7 +9,7 @@ dataset_mixer:
   lamm-mit/magpie-ultra-v0.1: 1.0
   lamm-mit/HuggingFaceH4-deita-10k-v0-sft: 1.0
   lamm-mit/HuggingFaceH4-ultrachat_200k: 1.0
-  lamm-mit/bio-silk-mech-mix-q-a-35K
+  lamm-mit/bio-silk-mech-mix-q-a-35K: 1.0
 
 dataset_splits:
 - train

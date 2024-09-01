@@ -1,0 +1,49 @@
+# Model arguments
+model_name_or_path: lamm-mit/mistral-7B-v0.3-Instruct-CPT_SFT
+torch_dtype: null
+
+# Data training arguments
+# For definitions, see: src/h4/training/config.py
+dataset_mixer:
+  lamm-mit/orpo-dpo-mix-40k: 1.0
+  lamm-mit/bio-inspired-DPO: 1.0
+  lamm-mit/spider-silk-DPO: 1.0
+
+dataset_splits:
+- train
+
+preprocessing_num_workers: 12
+
+# DPOTrainer arguments
+bf16: true
+beta: 0.05
+do_eval: False
+eval_strategy: "no"
+#do_eval: true
+#eval_strategy: steps
+#eval_steps: 100
+gradient_accumulation_steps: 2
+gradient_checkpointing: true
+gradient_checkpointing_kwargs:
+  use_reentrant: False
+hub_model_id: lamm-mit/mistral-7B-v0.3-Instruct-CPT_SFT-DPO
+learning_rate: 5.0e-7
+log_level: info
+logging_steps: 10
+lr_scheduler_type: cosine
+max_length: 2048
+max_prompt_length: 1700
+num_train_epochs: 1
+optim: adamw_torch
+output_dir: data/mistral-7B-v0.3-Instruct-CPT_SFT-DPO
+per_device_train_batch_size: 4
+per_device_eval_batch_size: 1
+push_to_hub: true
+hub_strategy: every_save
+save_strategy: epoch
+#save_strategy: "steps"
+#save_steps: 100
+
+save_total_limit: 1
+seed: 42
+warmup_ratio: 0.1

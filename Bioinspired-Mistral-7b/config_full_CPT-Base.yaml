@@ -23,7 +23,7 @@ gradient_accumulation_steps: 4
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
   use_reentrant: False
-hub_model_id: lamm-mit/mistral-7B-v0.3-zephyr-CPT
+hub_model_id: lamm-mit/mistral-7B-v0.3-CPT
 hub_private_repo: True
 hub_strategy: every_save
 learning_rate: 2.0e-5 #2.0e-05  was before
@@ -34,7 +34,7 @@ lr_scheduler_type: cosine
 max_seq_length: 3072
 max_steps: -1
 num_train_epochs: 3
-output_dir: data/mistral-7B-v0.3-zephyr-CPT
+output_dir: data/mistral-7B-v0.3-CPT
 overwrite_output_dir: true
 per_device_eval_batch_size: 1
 per_device_train_batch_size: 12
