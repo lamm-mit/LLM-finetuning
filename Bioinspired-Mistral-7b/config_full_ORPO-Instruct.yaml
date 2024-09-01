@@ -1,6 +1,6 @@
 # Model arguments
 #model_name_or_path: lamm-mit/llama-3-1-bio-base_V1
-model_name_or_path: lamm-mit/mistral-7B-v0.3-zephyr-Instruct-CPT_SFT
+model_name_or_path: lamm-mit/mistral-7B-v0.3-Instruct-CPT_SFT
 model_revision: main
 torch_dtype: bfloat16
 attn_implementation: flash_attention_2
@@ -26,7 +26,7 @@ gradient_accumulation_steps: 1
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
   use_reentrant: true
-hub_model_id: lamm-mit/mistral-7B-v0.3-zephyr-Instruct-CPT_SFT_ORPO
+hub_model_id: lamm-mit/mistral-7B-v0.3-Instruct-CPT_SFT_ORPO
 hub_private_repo: true
 learning_rate: 3.0e-06
 log_level: info
@@ -38,7 +38,7 @@ max_length: 3072
 max_prompt_length: 2000
 num_train_epochs: 3
 #optim: adamw_bnb_8bit
-output_dir: data/mistral-7B-v0.3-zephyr-Instruct-CPT_SFT_ORPO
+output_dir: data/mistral-7B-v0.3-Instruct-CPT_SFT_ORPO
 per_device_eval_batch_size: 1
 per_device_train_batch_size: 8
 

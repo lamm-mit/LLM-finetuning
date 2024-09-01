@@ -7,9 +7,10 @@ torch_dtype: bfloat16
 # Data training arguments
 dataset_mixer:
   lamm-mit/bio-silk-mech-mix-80K: 1.0 
-  lamm-mit/raw-text-silk-bio-extended-13.5K: 1.0  
   lamm-mit/bio-silk-mech-mix-80K: 1.0 
-  lamm-mit/bioinspired_expanded_60K: 1.0
+  lamm-mit/bio-materials-text-60K: 1.0
+  lamm-mit/raw-text-bio-marker: 1.0
+  lamm-mit/raw-text-silk-marker: 1.0 
 
 dataset_splits:
   - train
@@ -33,7 +34,7 @@ logging_strategy: steps
 lr_scheduler_type: cosine
 max_seq_length: 3072
 max_steps: -1
-num_train_epochs: 3
+num_train_epochs: 5
 output_dir: data/mistral-7B-v0.3-CPT
 overwrite_output_dir: true
 per_device_eval_batch_size: 1

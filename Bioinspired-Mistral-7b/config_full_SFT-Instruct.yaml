@@ -1,5 +1,5 @@
 # Model arguments
-model_name_or_path: lamm-mit/mistral-7B-v0.3-zephyr-Instruct-CPT
+model_name_or_path: lamm-mit/mistral-7B-v0.3-Instruct-CPT
 model_revision: main
 torch_dtype: bfloat16
 attn_implementation: flash_attention_2
@@ -29,7 +29,7 @@ gradient_accumulation_steps: 2
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
   use_reentrant: False
-hub_model_id: lamm-mit/mistral-7B-v0.3-zephyr-Instruct-CPT_SFT
+hub_model_id: lamm-mit/mistral-7B-v0.3-Instruct-CPT_SFT
 hub_strategy: every_save
 hub_private_repo: True
 learning_rate: 2.0e-05
@@ -40,7 +40,7 @@ lr_scheduler_type: cosine
 max_seq_length: 3076
 max_steps: -1
 num_train_epochs: 1
-output_dir: data/mistral-7B-v0.3-zephyr-Instruct-CPT_SFT
+output_dir: data/mistral-7B-v0.3-Instruct-CPT_SFT
 overwrite_output_dir: true
 per_device_eval_batch_size: 1
 per_device_train_batch_size: 12

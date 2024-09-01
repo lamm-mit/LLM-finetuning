@@ -7,10 +7,10 @@ torch_dtype: bfloat16
 # Data training arguments
 dataset_mixer:
   lamm-mit/bio-silk-mech-mix-80K: 1.0 
-  lamm-mit/raw-text-silk-bio-extended-13.5K: 1.0  
   lamm-mit/bio-silk-mech-mix-80K: 1.0 
-  lamm-mit/magpie-ultra-v0.1: 0.1 
-  lamm-mit/bioinspired_expanded_60K: 1.0
+  lamm-mit/bio-materials-text-60K: 1.0
+  lamm-mit/raw-text-bio-marker: 1.0
+  lamm-mit/raw-text-silk-marker: 1.0 
 
 dataset_splits:
   - train
@@ -31,7 +31,7 @@ gradient_accumulation_steps: 2
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
   use_reentrant: False
-hub_model_id: lamm-mit/mistral-7B-v0.3-zephyr-Instruct-CPT
+hub_model_id: lamm-mit/mistral-7B-v0.3-Instruct-CPT
 hub_private_repo: True
 hub_strategy: every_save
 learning_rate: 2.0e-5 #2.0e-05  was before
@@ -41,8 +41,8 @@ logging_strategy: steps
 lr_scheduler_type: cosine
 max_seq_length: 3072
 max_steps: -1
-num_train_epochs: 3
-output_dir: data/mistral-7B-v0.3-zephyr-Instruct-CPT
+num_train_epochs: 5
+output_dir: data/mistral-7B-v0.3-Instruct-CPT
 overwrite_output_dir: true
 per_device_eval_batch_size: 1
 per_device_train_batch_size: 12
