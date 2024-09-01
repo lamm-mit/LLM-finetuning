@@ -20,7 +20,7 @@ preprocessing_num_workers: 12
 # SFT trainer config
 bf16: true
 dataset_kwargs:
-  add_special_tokens: true  # We already wrap <bos> and <eos> in the chat template
+  add_special_tokens: true  #  
   append_concat_token: false # No need to add <eos> across samples
 do_eval: False
 eval_strategy: "no"
@@ -32,7 +32,7 @@ gradient_checkpointing_kwargs:
 hub_model_id: lamm-mit/BioSilk_Llama3.1-8b-Instruct-CPT
 hub_private_repo: True
 hub_strategy: every_save
-learning_rate: 2.0e-5 #2.0e-05  was before
+learning_rate: 2.0e-5  
 log_level: info
 logging_steps: 5 
 logging_strategy: steps
