@@ -447,3 +447,118 @@ Example use to convert .MD files in ```output_dir``` to LaTeX code:
 output_dir = "text_output"
 process_all_md_files_in_directory(output_dir, model_associations)
 ```
+
+## Image generation using leaf-flux
+
+You will need significant GPU resources to run FLUX. 
+
+```python
+from diffusers import FluxPipeline
+import torch
+
+pipeline = FluxPipeline.from_pretrained(
+    "black-forest-labs/FLUX.1-dev",
+    torch_dtype=torch.bfloat16
+)
+repo_id='lamm-mit/leaf_LoRA_FLUX_V101'
+pipeline.load_lora_weights(repo_id, weight_name='leaf_LoRA_FLUX_V101_000001750.safetensors')
+pipeline=pipeline.to('cuda')
+```
+
+Alternatively:
+```python
+from diffusers import FluxPipeline
+import torch
+
+model_id='lamm-mit/leaf-flux'
+pipeline = FluxPipeline.from_pretrained(
+    model_id,
+    torch_dtype=torch.bfloat16
+)
+pipeline=pipeline.to('cuda')
+```
+
+### Sample inference
+Helper functions
+```
+import gc
+from datetime import datetime
+
+from tqdm.auto import tqdm
+
+import argparse
+import glob
+import hashlib
+
+import pandas as pd
+import torch
+from transformers import T5EncoderModel
+from pathlib import Path
+ 
+from diffusers import StableDiffusion3Pipeline
+
+from PIL import Image
+def generate_filename(base_name, extension=".png"):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    return f"{base_name}_{timestamp}{extension}"
+
+def save_image(image, directory, base_name="image_grid"):
+    
+    filename = generate_filename(base_name)
+    file_path = os.path.join(directory, filename)
+    image.save(file_path)
+    print(f"Image saved as {file_path}")
+
+def image_grid(imgs, rows, cols, save=True, save_dir='generated_images', base_name="image_grid",
+              save_individual_files=False):
+    
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+        
+    assert len(imgs) == rows * cols
+    w, h = imgs[0].size
+    grid = Image.new('RGB', size=(cols * w, rows * h))
+    grid_w, grid_h = grid.size
+
+    for i, img in enumerate(imgs):
+        grid.paste(img, box=(i % cols * w, i // cols * h))
+        if save_individual_files:
+            save_image(img, save_dir, base_name=base_name+f'_{i}-of-{len(imgs)}_')
+            
+    if save and save_dir:
+        save_image(grid, save_dir, base_name)
+    
+    return grid
+
+def download_image(url):
+  try:
+    response = requests.get(url)
+  except:
+    return None
+  return Image.open(BytesIO(response.content)).convert("RGB")
+```
+Then, do inference as such: 
+```python
+prompt="""Generate a futuristic, eco-friendly architectural concept utilizing a biomimetic composite material that integrates the structural efficiency of spider silk with the adaptive porosity of plant tissues. Utilize the following key features:
+
+* Fibrous architecture inspired by spider silk, represented by sinuous lines and curved forms.
+* Interconnected, spherical nodes reminiscent of plant cell walls, emphasizing growth and adaptation.
+* Open cellular structures echoing the permeable nature of plant leaves, suggesting dynamic exchanges and self-regulation capabilities.
+* Gradations of opacity and transparency inspired by the varying densities found in plant tissues, highlighting functional differentiation and multi-functionality.
+"""
+
+num_samples = 1
+num_rows    = 1
+n_steps     = 25
+guidance_scale=3.5
+all_images = []
+for _ in range(num_rows):
+    image = pipeline(prompt,num_inference_steps=n_steps,num_images_per_prompt=num_samples,
+                     guidance_scale=guidance_scale,).images     
+    all_images.extend(image)
+
+grid = image_grid(all_images, num_rows, num_samples,  save_individual_files=True,)
+grid
+```
+Resulting image: 
+![image_grid_1-of-25__20240831_185535](https://github.com/user-attachments/assets/3928bef5-aa47-40ee-a296-674547915b37)
