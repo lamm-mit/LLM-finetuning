@@ -1,4 +1,4 @@
-# LLM-finetuning
+# LLM Finetuning for domain adaptation
 
 Various strategies are presented to fine-tune LLMs, using CPT, SFT and DPO/ORPO. This repositories includes all codes, some based on the Hugging Face Alignment Handbook (https://github.com/huggingface/alignment-handbook). A snapshot of this code is included in the subdirectory ```alignment-handbook``` (as of Sept. 1, 2024). Note, several of the training Python files (e.g. ```run_cpt.py```, ```run_sft.py```, etc. have been updated; correct versions are included in the root directory). 
 
