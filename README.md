@@ -81,7 +81,7 @@ from matplotlib import pyplot as plt
 device = torch.device("cuda")
 torch.version.cuda, torch.__version__, torch.backends.cudnn.version(), torch.backends.cudnn.enabled, torch.cuda.is_available()
 
-def load_model (model_name='lamm-mit/llama-3-1-base-bio-V20_SFT_ORPO', chat_template=None,
+def load_model (model_name='lamm-mit/Llama3.1-8b-Instruct-CPT-SFT-DPO-09022024', chat_template=None,
                 #compile_mode="max-autotune", 
                 compile_mode=None,
                 attn_implementation="flash_attention_2",
@@ -275,7 +275,7 @@ try:
 except:
     pass
     
-model, tokenizer,=load_model (model_name='lamm-mit/BioSilk_Llama3.1-8b-Instruct-CPT-SFT-DPO')
+model, tokenizer,=load_model (model_name='lamm-mit/Llama3.1-8b-Instruct-CPT-SFT-DPO-09022024')
 
 messages=[]
 result,messages=generate_response (model, tokenizer, text_input="Collagen and leaves, discuss their relationship.",num_return_sequences=1, 
@@ -305,13 +305,9 @@ def sanitize_filename(filename):
 
 # Dictionary associating model names
 model_associations = {
-    "lamm-mit/Bioinspired-SmolLM-1.7B-Instruct": "lamm-mit/SmolLM_BioSilk-CPT-SFT-DPO",
-    "lamm-mit/BioSilk_Llama3.1-8b-Instruct-CPT-SFT-DPO": "lamm-mit/Llama3.1-8b-Instruct-CPT-SFT_DPO",
-    "lamm-mit/BioSilk_Aug19_CPT_SFT_ORPO_SLERP": "lamm-mit/Llama3.1-8b-Instruct-CPT-SFT-ORPO-SLERP",
-    "lamm-mit/Llama3.1-8b-Instruct-CPT-ORPO-SLERP_Var_G": "lamm-mit/Llama3.1-8b-Instruct-CPT-SFT-ORPO-SLERP_Var_G",
-    "lamm-mit/mistral-7B-v0.3-Instruct-CPT_SLERP": "lamm-mit/mistral-7B-Instruct-v0.3-CPT_SLERP",
-    "lamm-mit/mistral-7B-v0.3-zephyr-Instruct-CPT_SFT": "lamm-mit/mistral-7B-Instruct-v0.3-CPT-SFT",
-    "lamm-mit/mistral-7B-v0.3-Base-CPT_SFT_V2_DPO": "lamm-mit/mistral-7B-v0.3-Base-CPT_SFT_DPO"
+    "lamm-mit/Llama3.1-8b-Instruct-CPT-SFT-DPO-09022024": "lamm-mit/Llama3.1-8b-Instruct-CPT-SFT_DPO",
+    "lamm-mit/Llama3.1-8b-Instruct-CPT-SFT-ORPO-SLERP-09022024": "lamm-mit/Llama3.1-8b-Instruct-CPT-SFT-ORPO-SLERP",
+    "lamm-mit/SmolLM-Base-1.7B-CPT-SFT-DPO-09022024": "lamm-mit/SmolLM-Base-1.7B-CPT-SFT-DPO",
 }
 
 eos_token_id_Llama= [ 128001, 128008,128009, ]
@@ -336,7 +332,6 @@ os.makedirs(output_dir, exist_ok=True)
 # Iterate through each model
 for model_path, model_name in model_associations.items():
     gc.collect()
-     
     try:
         del model
         del tokenizer
