@@ -460,8 +460,8 @@ pipeline = FluxPipeline.from_pretrained(
     "black-forest-labs/FLUX.1-dev",
     torch_dtype=torch.bfloat16
 )
-repo_id='lamm-mit/leaf_LoRA_FLUX_V101'
-pipeline.load_lora_weights(repo_id, weight_name='leaf_LoRA_FLUX_V101_000001750.safetensors')
+repo_id='lamm-mit/leaf-FLUX.1-dev'
+pipeline.load_lora_weights(repo_id, )
 pipeline=pipeline.to('cuda')
 ```
 
