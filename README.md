@@ -443,7 +443,7 @@ output_dir = "text_output"
 process_all_md_files_in_directory(output_dir, model_associations)
 ```
 
-## Image generation using leaf-flux
+## Image generation using ```leaf-FLUX.1-dev```
 
 You will need significant GPU resources to run FLUX. 
 
@@ -465,7 +465,7 @@ Alternatively:
 from diffusers import FluxPipeline
 import torch
 
-model_id='lamm-mit/leaf-flux'
+model_id='lamm-mit/leaf-FLUX.1-dev'
 pipeline = FluxPipeline.from_pretrained(
     model_id,
     torch_dtype=torch.bfloat16
