@@ -221,6 +221,7 @@ model_name=merge_SLERP_and_save (source='lamm-mit/mistral-7B-v0.3-Instruct-CPT',
 tokenizer = AutoTokenizer.from_pretrained('lamm-mit/mistralai-Mistral-7B-Instruct-v0.3', trust_remote_code=True, add_bos_token=False)
 tokenizer.push_to_hub ('lamm-mit/'+model_name, private=True)
 ```
+![image](https://github.com/user-attachments/assets/0458583a-df8e-4460-9b52-8ed9dce383df)
 
 ## Inference 
 
