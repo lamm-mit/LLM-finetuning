@@ -560,3 +560,14 @@ grid
 ```
 Resulting image: 
 ![image_grid_1-of-25__20240831_185535](https://github.com/user-attachments/assets/3928bef5-aa47-40ee-a296-674547915b37)
+
+### Reference
+
+```bibtex
+@article{LuLuuBuehler2024,
+  title={Fine-tuning large language models for domain adaptation: Exploration of training strategies, scaling, model merging and synergistic capabilities},
+  author={Wei Lu and Rachel K. Luu and Markus J. Buehler},
+  journal={Preprint},
+  year={2024},
+}
+```
