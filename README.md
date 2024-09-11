@@ -567,7 +567,7 @@ Resulting image:
 @article{LuLuuBuehler2024,
   title={Fine-tuning large language models for domain adaptation: Exploration of training strategies, scaling, model merging and synergistic capabilities},
   author={Wei Lu and Rachel K. Luu and Markus J. Buehler},
-  journal={Preprint},
+  journal={arXiv: https://arxiv.org/abs/2409.03444},
   year={2024},
 }
 ```
